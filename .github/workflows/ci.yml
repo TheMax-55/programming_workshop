@@ -18,4 +18,4 @@ jobs:
       - name: Run test
         working-directory: lab1
         run: make test
-        
+
