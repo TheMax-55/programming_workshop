@@ -1,1 +1,1 @@
-// quad_equations.h
+double *quadratic(double a, double b, double c, double eps);
