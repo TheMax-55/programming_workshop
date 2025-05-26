@@ -15,7 +15,7 @@ void test_linear() {
                            upper_limit_of_integration, 1000, linear);
   double expected = (upper_limit_of_integration * upper_limit_of_integration -
                      lower_limit_of_integration * lower_limit_of_integration) /
-                    2.0; // Аналит решение с помощью формулы Ньютона-Лейбница
+                    2.0;
 
   assert(fabs(result - expected) < 1e-6);
 }
@@ -25,12 +25,11 @@ void test_quadratic() {
   double upper_limit_of_integration = 2.0;
   double result = integral(lower_limit_of_integration,
                            upper_limit_of_integration, 1000, quadratic);
-  double expected =
-      (upper_limit_of_integration * upper_limit_of_integration *
-           upper_limit_of_integration -
-       lower_limit_of_integration * lower_limit_of_integration *
-           lower_limit_of_integration) /
-      3.0; // Аналитическое решение с помощью формулы Ньютона-Лейбница
+  double expected = (upper_limit_of_integration * upper_limit_of_integration *
+                         upper_limit_of_integration -
+                     lower_limit_of_integration * lower_limit_of_integration *
+                         lower_limit_of_integration) /
+                    3.0;
 
   assert(fabs(result - expected) < 1e-6);
 }
