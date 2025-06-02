@@ -11,11 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Checkstyle
+      - name: Checkstyle (lab1)
         working-directory: lab1
         run: make check_fmt
 
-      - name: Run test
+      - name: Run test (lab1)
         working-directory: lab1
         run: make test
 
+      - name: Checkstyle (lab2)
+        working-directory: lab2
+        run: make check_fmt
+        
+      - name: Run test (lab2)
+        working-directory: lab2
+        run: make test
