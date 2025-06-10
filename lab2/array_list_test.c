@@ -7,10 +7,11 @@ void test_init() {
   assert(allocator != NULL);
 
   ArrayList list;
-  arraylist_init(&list, allocator);
+  arraylist_init(&list, allocator, sizeof(int));
   assert(list.size == 0);
   assert(list.capacity == 0);
   assert(list.data == NULL);
+  assert(list.element_size == sizeof(int));
 
   arraylist_free(&list);
   linear_allocator_deinit(allocator);
@@ -19,7 +20,7 @@ void test_init() {
 void test_add_get() {
   linear_allocator *allocator = linear_allocator_init(1024);
   ArrayList list;
-  arraylist_init(&list, allocator);
+  arraylist_init(&list, allocator, sizeof(int));
 
   int a = 10, b = 20, c = 30, d = 40;
 
@@ -41,7 +42,7 @@ void test_add_get() {
 void test_delete() {
   linear_allocator *allocator = linear_allocator_init(1024);
   ArrayList list;
-  arraylist_init(&list, allocator);
+  arraylist_init(&list, allocator, sizeof(int));
 
   int values[] = {10, 20, 30, 40, 50};
   for (int i = 0; i < 5; i++) {
@@ -62,7 +63,7 @@ void test_delete() {
 void test_reallocation() {
   linear_allocator *allocator = linear_allocator_init(1024);
   ArrayList list;
-  arraylist_init(&list, allocator);
+  arraylist_init(&list, allocator, sizeof(int));
 
   int value = 42;
   arraylist_add(&list, &value, 0);
