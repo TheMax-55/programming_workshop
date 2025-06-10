@@ -8,7 +8,7 @@ void test_initialization() {
   PoolAllocator *mem = pool_init(sizeof(HashTableEntry), 5);
   HashTable ht;
 
-  hashtable_init(&ht, 4, mem);
+  hashtable_init(&ht, 4, sizeof(int), mem);
   assert(ht.capacity == 4);
   assert(ht.buckets != NULL);
   assert(ht.allocator == mem);
@@ -24,7 +24,7 @@ void test_initialization() {
 void test_insert_retrieve() {
   PoolAllocator *mem = pool_init(sizeof(HashTableEntry), 6);
   HashTable ht;
-  hashtable_init(&ht, 3, mem);
+  hashtable_init(&ht, 3, sizeof(int), mem);
 
   int x = 7, y = 13, z = 42;
 
@@ -49,7 +49,7 @@ void test_insert_retrieve() {
 void test_remove() {
   PoolAllocator *mem = pool_init(sizeof(HashTableEntry), 4);
   HashTable ht;
-  hashtable_init(&ht, 2, mem);
+  hashtable_init(&ht, 2, sizeof(double), mem);
 
   double pi = 3.1415, e = 2.7182;
 
@@ -72,22 +72,22 @@ void test_remove() {
 void test_collisions() {
   PoolAllocator *mem = pool_init(sizeof(HashTableEntry), 8);
   HashTable ht;
-  hashtable_init(&ht, 1, mem);
+  hashtable_init(&ht, 1, sizeof(char *), mem);
 
   char *items[] = {"red", "green", "blue", "yellow"};
 
   for (int k = 0; k < 4; k++) {
-    hashtable_insert(&ht, items[k], items[k]);
+    hashtable_insert(&ht, items[k], &items[k]);
   }
 
   for (int k = 0; k < 4; k++) {
-    assert(strcmp(hashtable_get(&ht, items[k]), items[k]) == 0);
+    assert(*(char **)hashtable_get(&ht, items[k]) == items[k]);
   }
 
   hashtable_del(&ht, "green");
   assert(hashtable_get(&ht, "green") == NULL);
-  assert(strcmp(hashtable_get(&ht, "red"), "red") == 0);
-  assert(strcmp(hashtable_get(&ht, "blue"), "blue") == 0);
+  assert(*(char **)hashtable_get(&ht, "red") == items[0]);
+  assert(*(char **)hashtable_get(&ht, "blue") == items[2]);
 
   hashtable_free(&ht);
   pool_deinit(mem);
@@ -101,3 +101,4 @@ int main() {
 
   return 0;
 }
+
