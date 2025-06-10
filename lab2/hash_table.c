@@ -112,4 +112,3 @@ void hashtable_free(HashTable *table) {
   table->value_size = 0;
   table->allocator = NULL;
 }
-
